@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Login</title>
+</head>
+<body>
+
+<h2>Employee Login</h2>
+
+<form id="loginForm">
+    <label> ID:</label><br>
+    <input type="text" id="id" placeholder="Enter ID"><br><br>
+
+    <label>Name:</label><br>
+    <input type="text" id="name" placeholder="Enter Name"><br><br>
+
+    <button type="button" onclick="Login()">Login</button>
+</form>
+
+<p id="msg" style="font-weight: bold;"></p>
+
+<script>
+function Login() {
+    const data = {
+        id: document.getElementById("id").value,
+        name: document.getElementById("name").value
+    };
+
+    fetch("http://localhost:8000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log("================", result.message)
+        document.getElementById("msg").innerText = result.message;
+    });
+}
+</script>
+
+</body>
+</html>
